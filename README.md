@@ -21,8 +21,7 @@
 - [Pros and Cons of Sankey Plots](#-pros-and-cons-of-sankey-plots)
 - [Other Use Cases for Sankey Plots](#-other-use-cases-for-sankey-plots)
 - [Troubleshooting](#-troubleshooting)
-- [Citation](#-citation)
-- [License](#-license)
+- [To Refer](#-To-Refer)
 
 ---
 
