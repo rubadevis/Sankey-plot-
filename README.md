@@ -1,15 +1,4 @@
-
-This workflow:
-1. Reads a QIIME2 collapsed taxonomy table
-2. Calculates per-sample relative abundance
-3. Averages biological replicates
-4. Builds hierarchical relationships between taxa
-5. Produces an interactive Sankey diagram
-The Sankey plot shows how abundance flows through taxonomic ranks.
-
-
-
-# 🌿 Microbiome Taxonomic Sankey Plot
+# 🌿 Metabarcoding Taxonomic Sankey Plot
 ### From QIIME2 Output → Relative Abundance → Interactive Hierarchical Flow Diagram
 
 > An open-source R workflow for visualising microbial community composition across taxonomic levels using interactive Sankey diagrams. Designed for environmental DNA (eDNA) and metabarcoding studies — beginner-friendly, fully annotated, and ready to run out of the box.
@@ -50,14 +39,14 @@ The script is written for **bachelor's and master's students** new to microbiome
 
 ## ✨ Features
 
-- **Zero setup barrier** — includes a built-in example dataset that mimics exact QIIME2 output format, so you can run the entire script before touching your own data
+- **Zero setup barrier** — includes a built-in example dataset that mimics the exact QIIME2 output format, so you can run the entire script before touching your own data
 - **Two-variable control** — change only `MY_SEASON` and `MY_FOREST` to switch between sites or seasons; file names update automatically
 - **Taxonomic hierarchy visualisation** — flows across five levels simultaneously (Kingdom → Family), something no standard bar chart can show in one view
 - **Abundance-sorted layout** — nodes are automatically ranked top-to-bottom by relative abundance within each column, so the most dominant taxa always appear first
 - **Global colour consistency** — each taxon is assigned a fixed colour from the full dataset, so colours remain consistent if you generate multiple plots for comparison
 - **Interactive HTML output** — hover over any ribbon or node to see its exact relative frequency value; shareable as a standalone offline file
 - **Publication-ready PNG** — static screenshot saved automatically for use in papers, theses, and GitHub READMEs
-- **Non-target taxa filtering** — built-in filter list removes contaminant or off-target organisms (e.g. vertebrate families captured by COI primers)
+- **Non-target taxa filtering** — built-in filter list removes contaminant or off-target organisms 
 - **Sanity checks** — the script validates that sample IDs match between the OTU table and metadata, and that per-sample relative frequencies sum to 1.0
 - **QIIME2 command reference** — the bottom of the script includes the exact terminal commands to generate the input files from your QIIME2 pipeline
 
@@ -77,7 +66,7 @@ The most common way to visualise microbiome composition is a **stacked bar chart
 | Conveys community structure / hierarchy | ❌ No | ✅ Core strength |
 | Interactive exploration | ❌ Static | ✅ Hover for values |
 
-**When to use a bar chart instead:** If your primary goal is to compare relative abundance of one taxonomic level across many samples or treatment groups, a stacked bar chart is still the better choice. Sankey plots shine when you want to communicate the *structure* of a community — how major phyla break down into classes, orders, and families — rather than compare across groups.
+**When to use a bar chart instead:** If your primary goal is to compare the relative abundance of one taxonomic level across many samples or treatment groups, a stacked bar chart is still the better choice. Sankey plots shine when you want to communicate the *structure* of a community, how major phyla break down into classes, orders, and families, rather than compare across groups.
 
 ---
 
@@ -94,11 +83,13 @@ The most common way to visualise microbiome composition is a **stacked bar chart
    Kingdom           Phylum                       Family
 ```
 
-**Nodes (rectangular blocks):** Each block represents one taxonomic group at one level. The **height** of the block is proportional to its total relative abundance — taller block = more abundant taxon.
+**Nodes (rectangular blocks):** Each block represents one taxonomic group at one level. The **height** of the block is proportional to its total relative abundance 
+taller block = more abundant taxon.
 
-**Ribbons (flows between nodes):** Each ribbon connects a parent taxon to one of its children. The **width** of the ribbon shows how much of the parent's abundance flows into that child. Wider ribbon = higher relative abundance of that sub-group.
+**Ribbons (flows between nodes):** Each ribbon connects a parent taxon to one of its children. The **width** of the ribbon shows how much of the parent's abundance flows into that child.
+Wider ribbon = higher relative abundance of that sub-group.
 
-**Reading direction:** Left to right, broad to fine. Start at Kingdom (always Bacteria or Eukaryota in most datasets) and follow the flows rightward to see how the community breaks down at increasing resolution.
+**Reading direction:** Left to right, broad to fine. Start at Kingdom (always Bacteria or Eukaryota in most datasets) and follow the flows to the right to see how the community breaks down at increasing resolution.
 
 **Colour:** Each taxon has a unique colour assigned at the Kingdom/Phylum level. The same colour flows through all downstream levels — so you can trace, for example, all Firmicutes (one colour) as they split into classes, orders, and families moving right.
 
@@ -116,7 +107,7 @@ The script runs in two sequential parts:
 ### Part 1 — Relative Abundance Calculation
 
 ```
-collapsed-L5.csv          co1-metadata.tsv
+collapsed-L5.csv          metadata.tsv
 (raw QIIME2 counts)       (sample metadata)
         │                        │
         ▼                        ▼
@@ -202,25 +193,6 @@ Links are coloured by their **source** taxon (`LinkGroup = "source_name"`), so r
 
 ---
 
-## 📁 Project Structure
-
-```
-.
-├── microbiome_relabund_sankey_single.R   # Main analysis script
-├── README.md                             # This file
-│
-├── [generated by the example data block]
-│   ├── collapsed-L5.csv                 # Simulated QIIME2 OTU table
-│   └── co1-metadata.tsv                 # Simulated sample metadata
-│
-└── [generated as outputs]
-    ├── master_taxa_data.csv             # Cleaned relative abundance table
-    ├── sankey_Neora_Valley_Pre_Monsoon.html   # Interactive Sankey plot
-    └── sankey_Neora_Valley_Pre_Monsoon.png    # Static PNG
-```
-
----
-
 ## 🛠️ Installation
 
 ### Prerequisites
@@ -252,8 +224,8 @@ webshot2::install_phantomjs()
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/rubadevis/Sankey-plot-.git
+cd Sankey-plot-
 ```
 
 ---
@@ -262,11 +234,11 @@ cd your-repo-name
 
 ### Quick Start (with example data)
 
-1. Open `microbiome_relabund_sankey_single.R` in RStudio
+1. Open `Script.R` in RStudio
 2. Run the entire script (`Ctrl+Shift+Enter` / `Cmd+Shift+Enter`)
 3. Find your outputs in the working directory:
-   - `sankey_Neora_Valley_Pre_Monsoon.html` — open in any browser
-   - `sankey_Neora_Valley_Pre_Monsoon.png` — ready for papers/slides
+   - `sankey_Forest_Season.html` — open in any browser
+   - `sankey_Forest_Season.png` — ready for papers/slides
 
 ### Using Your Own QIIME2 Data
 
@@ -297,28 +269,28 @@ biom convert \
 
 **Step 2 — Prepare your metadata file**
 
-Your `co1-metadata.tsv` must be a tab-separated file with at minimum these columns:
+Your `metadata.tsv` must be a tab-separated file with at minimum these columns:
 
 ```
 SampleID        Season          Forest
-NV_PreMon_1     Pre Monsoon     Neora Valley
-NV_PreMon_2     Pre Monsoon     Neora Valley
-NV_PostMon_1    Post Monsoon    Neora Valley
+Sample_1        Season          Forest
+Sample_2        Season          Forest
+Sample_3        Season          Forest
 ```
 
 Column names must match exactly (case-sensitive).
 
 **Step 3 — Delete or skip the example data block**
 
-Comment out or delete the `CREATE EXAMPLE DATA` block at the top of the script (lines 45–107). The real files will be read instead.
+Comment out or delete the `CREATE EXAMPLE DATA` block at the top of the script. The real files will be read instead.
 
 **Step 4 — Set your season and forest**
 
 Near the top of Part 2, change these two lines to match your data:
 
 ```r
-MY_SEASON <- "Pre Monsoon"   # must match a value in your Season column
-MY_FOREST <- "Neora Valley"  # must match a value in your Forest column
+MY_SEASON <- "Season"   # must match a value in your Season column
+MY_FOREST <- "Forest"  # must match a value in your Forest column
 ```
 
 **Step 5 — Add non-target taxa to the filter list**
@@ -327,7 +299,7 @@ In Step 8, edit the `non_target` vector to include any Phylum or Family names yo
 
 ```r
 non_target <- c(
-  "Rotifera", "Tardigrada", "Felidae", ...  # add your own here
+  "xxxxx", "xxxxxxx", "xxxxxx", ...  # add your own here
 )
 ```
 
@@ -351,13 +323,13 @@ source("microbiome_relabund_sankey_single.R")
 Row 1 must be the comment line: `# Constructed from biom file`
 Row 2 is the header row starting with `#OTU ID`
 
-### co1-metadata.tsv (sample metadata)
+### metadata.tsv (sample metadata)
 
 | Column | Description |
 |---|---|
 | `SampleID` | Must match column names in `collapsed-L5.csv` exactly |
-| `Season` | Sampling season (e.g. `Pre Monsoon`, `Post Monsoon`) |
-| `Forest` | Sampling site (e.g. `Neora Valley`) |
+| `Season` | Sampling season |
+| `Forest` | Sampling site |
 
 Additional metadata columns are allowed and will be ignored.
 
@@ -373,27 +345,6 @@ Additional metadata columns are allowed and will be ignored.
 
 ---
 
-## ⚖️ Pros and Cons of Sankey Plots
-
-### ✅ Advantages
-
-- **Shows hierarchy in one view** — you see the entire Kingdom-to-Family breakdown simultaneously, which requires 4 separate bar charts to replicate
-- **Proportional and intuitive** — ribbon width directly encodes abundance; no axis reading required
-- **Reveals community structure** — which phyla dominate, how evenly or unevenly they are distributed across classes and orders
-- **Handles many taxa gracefully** — low-abundance taxa produce thin, unobtrusive ribbons rather than cluttering a legend
-- **Interactive** — the HTML version lets readers explore values without publishing a table
-- **Visually memorable** — effectively communicates complex nested data in a format suitable for presentations and posters
-
-### ❌ Limitations
-
-- **One group per plot** — cannot directly overlay two seasons or forests; you need side-by-side plots or a different visualisation for comparisons
-- **Not ideal for statistical testing** — shows patterns only; statistical significance requires separate analysis (e.g. PERMANOVA, DESeq2)
-- **Can become unreadable with too many thin ribbons** — datasets with hundreds of low-abundance families produce a tangle of very thin lines; consider filtering to top-N taxa before plotting
-- **Header positions need manual tuning** — the x-pixel positions of the level labels (Kingdom, Phylum…) may need adjustment for datasets with different node widths
-- **Requires webshot2 + Chrome for PNG** — the interactive HTML is always generated; the PNG step can fail if Chrome is not installed
-
----
-
 ## 🌐 Other Use Cases for Sankey Plots
 
 Sankey diagrams are not limited to microbiome data. Any dataset with **hierarchical or flow-based structure** is a good candidate:
@@ -405,11 +356,7 @@ Sankey diagrams are not limited to microbiome data. Any dataset with **hierarchi
 | **Genomics** | Functional annotation | Gene → Pathway → Process → Function |
 | **Epidemiology** | Disease progression | Exposed → Infected → Hospitalised → Recovered/Died |
 | **Conservation** | Land use change | Forest → Agriculture → Urban → Degraded |
-| **Economics** | Budget allocation | Total budget → Departments → Projects → Expenses |
-| **Climate science** | Carbon flow | Atmosphere → Ocean → Land → Biosphere |
 | **Public health** | Patient journey | Admitted → Diagnosed → Treated → Discharged |
-| **Education** | Student pathways | Enrolled → Year 1 → Year 2 → Graduated/Dropped |
-| **Manufacturing** | Material flow | Raw input → Processing steps → Products → Waste |
 
 The key requirement is that values flow from one category to the next and the proportional relationships between them are meaningful.
 
@@ -427,39 +374,34 @@ The key requirement is that values flow from one category to the next and the pr
 > `webshot2` requires Chrome or Chromium. Try `webshot2::install_phantomjs()` as a fallback. Alternatively, open the HTML file in Chrome and use `Ctrl+P` → Save as PDF, then convert to PNG.
 
 **Taxonomic level headers don't align with nodes**
-> Open the HTML in Chrome → press `F12` → hover over node rectangles in the Elements panel to read their pixel x-position → update the `positions` array in Step 16 of the script.
+> update the `positions` array in the script.
 
 **Taxonomy not parsed correctly (columns show full strings)**
 > Your QIIME2 taxonomy may use a different delimiter or prefix format. Check the raw string in the CSV and adjust the `sep` argument in `separate()` and the regex in `str_remove()` accordingly.
 
 ---
 
-## 📄 Citation
+## 📌 To Refer
 
-If you use this workflow in your research, please cite:
-
-```
-[Your Name] ([Year]). Microbiome Taxonomic Sankey Plot.
-GitHub: https://github.com/your-username/your-repo-name
-```
-
-If you use the underlying R packages, please also cite:
-- `networkD3`: Allaire J, et al. (2017). networkD3: D3 JavaScript Network Graphs from R.
-- `tidyverse`: Wickham H, et al. (2019). Welcome to the tidyverse. *Journal of Open Source Software*, 4(43), 1686.
-
----
-
-## 📜 License
-
-This project is released under the **MIT License** — free to use, modify, and distribute with attribution. See `LICENSE` for details.
+| Tool / Package | Link |
+|---|---|
+| **QIIME 2 GitHub** | [github.com/qiime2](https://github.com/qiime2) |
+| **networkD3** | [github.com/christophergandrud/networkD3](https://github.com/christophergandrud/networkD3) |
+| **tidyverse** | [tidyverse.org](https://www.tidyverse.org/) |
+| **data.table** | [rdatatable.gitlab.io/data.table](https://rdatatable.gitlab.io/data.table/) |
+| **htmlwidgets** | [htmlwidgets.org](https://www.htmlwidgets.org/) |
+| **htmltools** | [cran.r-project.org/package=htmltools](https://cran.r-project.org/package=htmltools) |
+| **jsonlite** | [cran.r-project.org/package=jsonlite](https://cran.r-project.org/package=jsonlite) |
+| **webshot2** | [github.com/rstudio/webshot2](https://github.com/rstudio/webshot2) |
 
 ---
 
 <div align="center">
 
-Made for the open microbiome community 🦠  
+Made for the open metabarcoding community 🦠  
 Contributions, issues, and pull requests are welcome
 
 </div>
+
 
 
