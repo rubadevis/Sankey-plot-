@@ -170,6 +170,19 @@ taxon_colour_scale <- JS(
     jsonlite::toJSON(unname(taxon_colors))
   )
 )
+# Step 9: Filter to the selected Season and Forest
+tax_data_filtered <- tax_data_all %>%
+  filter(Season == MY_SEASON, Forest == MY_FOREST)
+
+if (nrow(tax_data_filtered) == 0) {
+  stop(sprintf(
+    "No rows found for Season = '%s' and Forest = '%s'.\n  Available Seasons: %s\n  Available Forests: %s",
+    MY_SEASON, MY_FOREST,
+    paste(unique(tax_data_all$Season), collapse = ", "),
+    paste(unique(tax_data_all$Forest), collapse = ", ")
+  ))
+}
+
 # Step 11: Build Sankey links (source → target → value) 
 tax_levels <- c("Kingdom", "Phylum", "Class", "Order", "Family")
 all_links  <- list()
@@ -179,7 +192,7 @@ for (i in 1:(length(tax_levels) - 1)) {
   src <- tax_levels[i]       # left-side node  (e.g. "Phylum")
   tgt <- tax_levels[i + 1]   # right-side node (e.g. "Class")
   
-  all_links[[i]] <- tax_data_all %>%
+  all_links[[i]] <- tax_data_filtered %>%
     group_by(across(all_of(c(src, tgt)))) %>%
     summarise(value = sum(MeanRelFreq, na.rm = TRUE), .groups = "drop") %>%
     rename(source = 1, target = 2) %>%
@@ -210,7 +223,7 @@ nodes <- data.frame(
 ) %>%
   left_join(node_abundance, by = "name") %>%
   mutate(
-    level = sapply(name, assign_level, data = tax_data_all),
+    level = sapply(name, assign_level, data = tax_data_filtered),
     level_order = case_when(
       level == "Kingdom" ~ 1,
       level == "Phylum"  ~ 2,
